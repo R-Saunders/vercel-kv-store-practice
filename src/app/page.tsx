@@ -9,11 +9,15 @@ type BlogPostParams = {
 };
 
 export default async function Home({ params }: BlogPostParams) {
-	const res = await fetch(`${WEBSITE_URL}/api/message`, {
-		next: { revalidate: 2 },
-	});
-	const data = await res.json();
-
+	let data = "Hello world";
+	try {
+		const res = await fetch(`${WEBSITE_URL}/api/message`, {
+			next: { revalidate: 2 },
+		});
+		data = await res.json();
+	} catch (error) {
+		console.log(error);
+	}
 	return (
 		<main className={styles.main}>
 			<h1>Welcome to my API</h1>
