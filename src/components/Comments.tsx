@@ -1,25 +1,16 @@
 import { WEBSITE_URL } from "../../config";
+import CommentForm from "./CommentForm";
 
-export default async function Comments({ slug }: { slug: string }) {
-	let comments: any = [];
+export default async function Comments() {
+	const commentsRes = await fetch(`${WEBSITE_URL}/api/comments`, {
+		next: { revalidate: 5 },
+	});
+	const comments = await commentsRes.json();
 
-	// try {
-	// 	const commentsRes = await fetch(`${WEBSITE_URL}/api/comments/${slug}`, {
-	// 		next: { revalidate: 5 },
-	// 	});
-	// 	comments = await commentsRes.json();
-	// } catch (err) {
-	// 	console.log(err);
-	// }
+	console.log(comments);
 	return (
 		<div>
-			<form action={`/api/comments/${slug}`} method="POST">
-				<label htmlFor="username">Name</label>
-				<input name="username" />
-				<label htmlFor="comment">Comment</label>
-				<input name="comment" />
-				<button type="submit">Send Comment</button>
-			</form>
+			<CommentForm />
 			<ul>
 				{/* @ts-ignore */}
 				{comments.map((comment) => {
