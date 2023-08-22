@@ -5,8 +5,7 @@ import { NextRequest } from "next/server";
 
 export async function GET() {
 	// <string> between the get method and the actual invocation, tells the function what it will return
-	// const message = await kv.get<string>("message");
-	const message = "Hello Worlds";
+	const message = await kv.get<string>("message");
 	return new Response(JSON.stringify(message));
 }
 
