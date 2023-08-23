@@ -1,6 +1,7 @@
 import short from "short-uuid";
 import { kv } from "@vercel/kv";
 
+// Async function to save comments that accepts a username and comment as parameters. Both types are strings
 export async function saveComment(
 	username: string,
 	comment: string,
@@ -8,7 +9,7 @@ export async function saveComment(
 	// generate a unique ID for this comment
 	const uuid = short.generate();
 
-	// stringify our comment object
+	// create a comment object and stringify it
 	const commentObject = JSON.stringify({ username, comment, uuid });
 
 	// add the comment to our KV store
